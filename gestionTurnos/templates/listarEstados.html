@@ -1,1 +1,17 @@
 {% extends "base.html" %}
+{% block content %}
+<br/>
+<div class="list-group col-4 mx-auto">
+    {% for estado in estados %}
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active bg-info text-white rounded">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Turno numero {{estado.numero_urno}}</h5>
+        <small>{{estado.hora_creacion}}</small>
+      </div>
+      <p class="mb-1">Paciente: {{estado.usuario.nombre}}</p>
+      <small>{% if estado.usuario_staff %}Encargado: {{estado.usuario_staff}} {% endif %}</small>
+    </a>
+    {% endfor %}
+</div>
+<br/>
+{% endblock %}

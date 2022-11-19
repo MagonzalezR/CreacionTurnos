@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin
 from .models import User, Turno
 from .forms import AdminFormActualizarUser, AdminFormCrearUser
 
+    
+
 class CustomUserAdmin(UserAdmin):
     form = AdminFormActualizarUser
     add_form = AdminFormCrearUser
@@ -28,9 +30,13 @@ class TurnoAdmin(admin.ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('numero_urno','hora_creacion','estado', 'usuario')}
+            'fields': ('numero_urno','estado', 'usuario')}
         ),
     )
+    def save_model(self, request, obj, form, change):
+        obj.usuario_staff = request.user
+        super().save_model(request, obj, form, change)
+
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Turno, TurnoAdmin)
 # Register your models here.

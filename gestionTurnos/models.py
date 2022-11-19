@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+from django.utils import timezone
 class ManejadorUser(BaseUserManager):
     def create_user(self, cedula, password=None):
         if not cedula:
@@ -67,8 +67,13 @@ class User(AbstractBaseUser):
 
 class Turno(models.Model):
     numero_urno=models.CharField(max_length=4)
-    hora_creacion=models.DateField()
+    hora_creacion=models.DateTimeField(editable=False)
     estado=models.CharField(max_length=10)
     usuario= models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='usuarioTurno')
-    usuario_staff= models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='usuarioStaff', blank=True)
+    usuario_staff= models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='usuarioStaff', blank=True, editable=False)
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+           self.hora_creacion = timezone.now()
+        return super(Turno, self).save(*args, **kwargs)
 

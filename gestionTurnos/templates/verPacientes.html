@@ -1,1 +1,14 @@
 {% extends "base.html" %}
+{% block content %}
+<br/>
+    {% for paciente in pacientes %}
+        <div class="card" style="width: 18rem; margin: auto;">
+            <img class="card-img-top" src="{{paciente.foto.url}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{paciente.nombre}} {{paciente.apellido}}</h5>
+                <p class="card-text">Celular: {{paciente.celular}}<br/>Cedula: {{paciente.cedula}}</p>
+            </div>
+        </div>
+    {% endfor %}
+<br/>
+{% endblock %}
