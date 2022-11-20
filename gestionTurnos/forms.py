@@ -62,6 +62,3 @@ class AdminFormActualizarUser(forms.ModelForm):
     
     def clean_password(self):
         return self.initial['password']
-    
-class AutFormUser(AuthenticationForm):
-    pass
