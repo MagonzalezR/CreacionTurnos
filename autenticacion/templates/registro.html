@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-group p-3">
+
+    <form action="registro" method="post" enctype="multipart/form-data" style="text-align: center;" >
+        {% csrf_token %}
+        <table class="mx-auto">
+            {{ form.as_table }}
+        </table>
+        <div class="mx-auto px-2"><input type="submit" value="Ingresar"></div>
+    </form>
+
+</div>
+{% endblock %}

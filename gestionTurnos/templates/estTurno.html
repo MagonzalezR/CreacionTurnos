@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-group p-3">
+
+    <form action="estTurno" method="POST" style="text-align: center;">
+        {% csrf_token %}
+        <table class="mx-auto">
+            {{ form.as_table }}
+        </table>
+        <div class="mx-auto px-2"><input type="submit" value="Realizar cambio"></div>
+    </form>
+
+</div>
+{% endblock %}
