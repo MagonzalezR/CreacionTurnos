@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gestionTurnos',
     'autenticacion',
+    'apis',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
