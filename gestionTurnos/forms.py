@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, AuthenticationForm
 from .models import User
 
 class FormRegistro(forms.ModelForm):
@@ -25,12 +25,12 @@ class FormRegistro(forms.ModelForm):
         return password2
 
 class AdminFormCrearUser(forms.ModelForm):
-    password1= forms.CharField(widget=forms.PasswordInput)
+    password1= forms.CharField(label='Contraseña',widget=forms.PasswordInput)
     password2= forms.CharField(label='Confirmar contraseña', widget=forms.PasswordInput)
 
     class Meta:
         model=User
-        fields=('cedula', 'nombre', 'apellido', 'celular', 'foto', 'staff')
+        fields=('cedula', 'nombre', 'apellido', 'celular', 'foto',)
     
     def clean_cedula(self):
         cedula = self.cleaned_data.get('cedula')
@@ -58,8 +58,10 @@ class AdminFormActualizarUser(forms.ModelForm):
 
     class Meta:
         model=User
-        fields=('cedula', 'nombre', 'apellido', 'celular', 'foto', 'staff', 'admin', 'active')
+        fields=('cedula', 'nombre', 'apellido', 'celular', 'foto', 'active', 'staff', 'admin')
     
     def clean_password(self):
         return self.initial['password']
     
+class AutFormUser(AuthenticationForm):
+    pass

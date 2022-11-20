@@ -20,31 +20,46 @@
 
     <h1 class="site-heading text-center text-white d-none d-lg-block">
       
-        <span class="site-heading-lower">Gestión de Pedidos</span>
+        <span class="site-heading-lower text-secondary">Gestión de Pacientes y turnos</span>
       </h1>
 
 
  <!-- Navbar -->
  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
     <div class="container">
+      
       <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{% url 'home' %}">Gestión de Turnos</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav mx-auto">
+          {%if user.is_authenticated %}
           <li class="nav-item {% if request.path == '/' %} active {% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'home' %}">Inicio</a>
           </li>
+          {%if user.is_staff %}
           <li class="nav-item {% if request.path == '/estTurno' %} active {% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'estTurno' %}">Cambiar estado de turno</a>
           </li>
+          {% endif %}
           <li class="nav-item {% if request.path == '/listarEstados' %} active {% endif %} px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="{% url 'listarEstados' %}">Ver estados</a>
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'listarEstados' %}">Ver Turnos</a>
           </li>
           <li class="nav-item {% if request.path == '/verPacientes' %} active {% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'verPacientes' %}">ver Pacientes</a>
           </li>
+          <li class="nav-item {% if request.path == '/autenticacion/logout' %} active {% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'logout' %}">Cerrar sesion</a>
+          </li>
+          {% else %}
+          <li class="nav-item {% if request.path == '/autenticacion/login' %} active {% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'login' %}">Iniciar sesion</a>
+          </li>
+          <li class="nav-item {% if request.path == '/autenticacion/registro' %} active {% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'registro' %}">Registrarse</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </div>

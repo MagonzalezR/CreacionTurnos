@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils import timezone
 class ManejadorUser(BaseUserManager):
     def create_user(self, cedula, password=None):
@@ -66,7 +66,7 @@ class User(AbstractBaseUser):
         self._is_staff = value
 
 class Turno(models.Model):
-    numero_urno=models.CharField(max_length=4)
+    numero_urno=models.CharField(max_length=4, unique=True)
     hora_creacion=models.DateTimeField(editable=False)
     estado=models.CharField(max_length=10)
     usuario= models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='usuarioTurno')
