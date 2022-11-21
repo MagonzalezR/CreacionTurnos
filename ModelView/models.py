@@ -7,7 +7,7 @@ class UserManager(BaseUserManager):
         if not identifier:
             raise ValueError('El usuario debe tener cedula')
         user = self.model(
-            cedula=identifier
+            identifier=identifier
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -27,11 +27,11 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-    cedula=models.CharField(max_length=10, unique=True)
-    nombre=models.CharField(max_length=40)
-    apellido=models.CharField(max_length=40)
-    celular=models.CharField(max_length=10)
-    foto=models.ImageField(upload_to='userPhoto')
+    identifier=models.CharField(max_length=10, unique=True)
+    name=models.CharField(max_length=40)
+    lastName=models.CharField(max_length=40)
+    cellphone=models.CharField(max_length=10)
+    picture=models.ImageField(upload_to='userPhoto')
     
     active=models.BooleanField( ('Activo'), default=True)
     staff=models.BooleanField(default=False)
@@ -40,10 +40,10 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
 
-    USERNAME_FIELD='cedula'
+    USERNAME_FIELD='identifier'
     REQUIRED_FIELDS= []
     def __str__(self):
-        return str(self.cedula)
+        return str(self.identifier)
     
     @property
     def is_staff(self):
@@ -66,15 +66,15 @@ class User(AbstractBaseUser):
     def is_staff(self, value):
         self._is_staff = value
 
-class Turno(models.Model):
-    numero_urno=models.CharField(max_length=4, unique=True)
-    hora_creacion=models.DateTimeField(editable=False)
-    estado=models.CharField(max_length=10)
-    usuario= models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='usuarioTurno')
-    usuario_staff= models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='usuarioStaff', blank=True, editable=False)
+class Turn(models.Model):
+    idTurn=models.CharField(max_length=4, unique=True)
+    creation=models.DateTimeField(editable=False)
+    state=models.CharField(max_length=10)
+    user= models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='patient')
+    userStaff= models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='userStaff', blank=True, editable=False)
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.id:
-           self.hora_creacion = timezone.now()
-        return super(Turno, self).save(*args, **kwargs)
+        if not self.idTurn:
+           self.creation = timezone.now()
+        return super(Turn, self).save(*args, **kwargs)
 

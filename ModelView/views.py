@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import User, Turno
-from .formulario import ChangeTurnForm
+from .models import User, Turn
+from .formsModel import ChangeTurnForm
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -12,10 +12,10 @@ def changeTurnState(request):
         form =ChangeTurnForm(data=request.POST)
         
         if form.is_valid():
-            numTurn = form.cleaned_data['turno']
-            stTurn =form.cleaned_data['estado']
-            newTurno= Turno.objects.get(numero_urno=numTurn)
-            newTurno.estado= stTurn
+            numTurn = form.cleaned_data['turn']
+            stTurn =form.cleaned_data['state']
+            newTurno= Turn.objects.get(idTurn=numTurn)
+            newTurno.state= stTurn
             newTurno.save()
             return redirect('listTurns')
     else:
@@ -24,7 +24,7 @@ def changeTurnState(request):
 
 @login_required
 def listTurns(request):
-    pending=Turno.objects.filter(estado='Pendiente').order_by('-hora_creacion')[:5]
+    pending=Turn.objects.filter(state='Pendiente').order_by('-creation')[:5]
     return render(request, 'listTurns.html', {'states':pending})
 
 @login_required

@@ -3,10 +3,10 @@
 <br/>
     {% for paciente in pacientes %}
         <div class="card" style="width: 18rem; margin: auto;">
-            <img class="card-img-top" src="{{paciente.foto.url}}" alt="Card image cap">
+            <img class="card-img-top" src="{{paciente.picture.url}}" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">{{paciente.nombre}} {{paciente.apellido}}</h5>
-                <p class="card-text">Celular: {{paciente.celular}}<br/>Cedula: {{paciente.cedula}}</p>
+                <h5 class="card-title">{{paciente.name}} {{paciente.lastName}}</h5>
+                <p class="card-text">Celular: {{paciente.cellphone}}<br/>Cedula: {{paciente.identifier}}</p>
             </div>
         </div>
     {% endfor %}

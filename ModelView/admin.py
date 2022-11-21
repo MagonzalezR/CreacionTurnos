@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Turno
-from .forms import AdminFormUpdateUser, AdminFormCreateUser
+from .models import User, Turn
+from .formsUser import AdminFormUpdateUser, AdminFormCreateUser
 
     
 
@@ -9,34 +9,34 @@ class CustomUserAdmin(UserAdmin):
     form = AdminFormUpdateUser
     add_form = AdminFormCreateUser
 
-    list_display = ('cedula','nombre', 'staff', 'celular',)
-    list_filter = ('cedula','nombre', 'staff', 'celular',)
+    list_display = ('identifier','name', 'cellphone', 'staff',)
+    list_filter = ('identifier','name', 'cellphone', 'staff',)
     fieldsets = (
-        (None, {'fields': ('cedula', 'password','nombre','apellido', 'celular', 'foto')}),
+        (None, {'fields': ('identifier', 'password','name','lastName', 'cellphone', 'picture')}),
         ('Permissions', {'fields': ('staff', 'active', 'admin')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('cedula','nombre','apellido', 'celular', 'foto', 'password1', 'password2', 'staff', 'active', 'admin')}
+            'fields': ('identifier','name','lastName', 'cellphone', 'picture', 'password1', 'password2', 'staff', 'active', 'admin')}
         ),
     )
-    search_fields = ('cedula',)
-    ordering = ('cedula',)
+    search_fields = ('identifier',)
+    ordering = ('identifier',)
     filter_horizontal= ()
 
 class TurnAdmin(admin.ModelAdmin):
-    model=Turno
+    model=Turn
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('numero_urno','estado', 'usuario')}
+            'fields': ('idTurn','state', 'user')}
         ),
     )
     def save_model(self, request, obj, form, change):
-        obj.usuario_staff = request.user
+        obj.userStaff = request.user
         super().save_model(request, obj, form, change)
 
 admin.site.register(User, CustomUserAdmin)
-admin.site.register(Turno, TurnAdmin)
+admin.site.register(Turn, TurnAdmin)
 # Register your models here.
