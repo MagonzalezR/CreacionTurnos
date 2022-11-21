@@ -1,25 +1,25 @@
 from django.shortcuts import render
 from django.views import View
 from django.http.response import JsonResponse
-from gestionTurnos.models import User, Turno
+from ModelView.models import User, Turno
 
-class TurnoList(View):
+class TurnList(View):
     def get(self, request):
-        turnos= list(Turno.objects.values())
-        if(len(turnos)>0):
-            datos={'message':'succes', 'turnos': turnos}
+        turns= list(Turno.objects.values())
+        if(len(turns)>0):
+            data={'message':'succes', 'turnos': turns}
         else:
-            datos={'message':'No turns aviable'}
-        return JsonResponse(datos)    
+            data={'message':'No turns aviable'}
+        return JsonResponse(data)    
   
 class VerifUser(View):
-    def get(self, request, cedula=""):
-        if cedula =="":
-            datos={'message':'No given id'}
+    def get(self, request, identifier=""):
+        if identifier =="":
+            data={'message':'No given id'}
         else:
-            usuarios= list(User.objects.filter(cedula=cedula).values())
-            if len(usuarios)>0:
-                datos={'message':'succes', 'usuarios': usuarios}
+            users= list(User.objects.filter(cedula=identifier).values())
+            if len(users)>0:
+                data={'message':'succes', 'usuarios': users}
             else:
-                datos={'message':'User not found'}
-        return JsonResponse(datos)
+                data={'message':'User not found'}
+        return JsonResponse(data)

@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import TurnoList, VerifUser
+from .views import TurnList, VerifUser
 urlpatterns = [
-    path('turnos/', TurnoList.as_view(), name='listaTurnos'),
-    path('usuarios/<str:cedula>', VerifUser.as_view(), name='verifUser'),
+    path('turns/', TurnList.as_view(), name='turnList'),
+    path('users/<str:identifier>', VerifUser.as_view(), name='verifUser'),
 ]
