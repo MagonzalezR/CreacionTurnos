@@ -5,11 +5,11 @@
     {% for state in states %}
     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active bg-info text-white rounded">
       <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Turno numero {{state.numero_urno}}</h5>
-        <small>{{state.hora_creacion}}</small>
+        <h5 class="mb-1">Turno numero {{state.idTurn}}</h5>
+        <small>{{state.creation}}</small>
       </div>
-      <p class="mb-1">Paciente: {{state.usuario.nombre}}</p>
-      <small>{% if state.usuario_staff %}Encargado: {{state.usuario_staff}} {% endif %}</small>
+      <p class="mb-1">Paciente: {{state.user.name}}</p>
+      <small>{% if state.userStaff %}Encargado: {{state.userStaff}} {% endif %}</small>
     </a>
     {% endfor %}
 </div>

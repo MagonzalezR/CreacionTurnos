@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from ModelView.forms import AdminFormCreateUser
+from ModelView.formsUser import AdminFormCreateUser
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
